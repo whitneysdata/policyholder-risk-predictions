@@ -21,4 +21,10 @@ Thumbs.db
 
 # Models (can be large)
 models/*.pkl
-models/*.joblib
+models/*.joblibdata/X_train.csv
+data/X_test.csv
+data/train_cleaned.csv
+data/y_train.csv
+data/y_test.csv
+data/train.csv.zip
+data/train.csv
