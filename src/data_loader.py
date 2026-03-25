@@ -261,4 +261,61 @@ def run_full_pipeline(data_folder: str = '../data'):
         'X_test_scaled' : X_test_scaled,
         'scaler'        : scaler
     }
-    
+
+
+def load_cleaned_data(data_folder: str = '../data'):
+    """
+    Load the saved cleaned and split data from Chapter 1.
+
+    Used by Chapters 2-5 to skip rerunning the full pipeline.
+    Reads compressed .csv.gz files — pandas handles these
+    automatically, no manual decompression needed.
+
+    Parameters
+    ----------
+    data_folder : str
+        Path to data folder. Default '../data' works when
+        calling from the notebooks/ folder.
+
+    Returns
+    -------
+    dict with keys:
+        df, X_train, X_test, y_train, y_test
+    """
+    print(" Loading cleaned data from data folder...")
+
+    df = pd.read_csv(
+        os.path.join(data_folder, 'train_cleaned.csv.gz'),
+        compression='gzip'
+    )
+    X_train = pd.read_csv(
+        os.path.join(data_folder, 'X_train.csv.gz'),
+        compression='gzip'
+    )
+    X_test = pd.read_csv(
+        os.path.join(data_folder, 'X_test.csv.gz'),
+        compression='gzip'
+    )
+    y_train = pd.read_csv(
+        os.path.join(data_folder, 'y_train.csv.gz'),
+        compression='gzip'
+    ).squeeze()   # Convert single column DataFrame to Series
+    y_test = pd.read_csv(
+        os.path.join(data_folder, 'y_test.csv.gz'),
+        compression='gzip'
+    ).squeeze()   # Convert single column DataFrame to Series
+
+    print(f" Cleaned data loaded.")
+    print(f"   Full dataset : {df.shape}")
+    print(f"   X_train      : {X_train.shape}")
+    print(f"   X_test       : {X_test.shape}")
+    print(f"   y_train      : {y_train.shape}")
+    print(f"   y_test       : {y_test.shape}")
+
+    return {
+        'df'     : df,
+        'X_train': X_train,
+        'X_test' : X_test,
+        'y_train': y_train,
+        'y_test' : y_test
+    }
