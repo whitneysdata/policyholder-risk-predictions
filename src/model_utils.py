@@ -118,3 +118,42 @@ def get_model_params_summary(models_folder: str = '../models'):
     print(" Model Parameters Summary:")
     print(params_df.to_string(index=False))
     return params_df
+
+def build_metrics_table(y_true, predictions: dict) -> pd.DataFrame:
+    """
+    Build a full metrics comparison table for all three models.
+
+    Parameters
+    ----------
+    y_true      : array-like — true test labels
+    predictions : dict — output of get_predictions()
+
+    Returns
+    -------
+    pd.DataFrame — metrics table with one row per model
+    """
+    from sklearn.metrics import (
+        accuracy_score, precision_score,
+        recall_score, f1_score, roc_auc_score
+    )
+
+    rows = []
+    for name, pred_key, proba_key in [
+        ('Logistic Regression', 'lr_pred',  'lr_proba'),
+        ('Random Forest',       'rf_pred',  'rf_proba'),
+        ('XGBoost',             'xgb_pred', 'xgb_proba')
+    ]:
+        rows.append({
+            'Model'    : name,
+            'Accuracy' : round(accuracy_score(y_true, predictions[pred_key]), 4),
+            'Precision': round(precision_score(y_true, predictions[pred_key],
+                                               zero_division=0), 4),
+            'Recall'   : round(recall_score(y_true, predictions[pred_key],
+                                            zero_division=0), 4),
+            'F1-Score' : round(f1_score(y_true, predictions[pred_key],
+                                        zero_division=0), 4),
+            'AUC-ROC'  : round(roc_auc_score(y_true, predictions[proba_key]), 4)
+        })
+
+    return pd.DataFrame(rows)
+    
