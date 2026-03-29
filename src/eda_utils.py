@@ -1,16 +1,3 @@
-
-# ============================================================
-# src/eda_utils.py
-# ============================================================
-# Reusable EDA helper functions for the Policyholder Risk
-# Scoring project.
-#
-# Import into any notebook with:
-#   import sys
-#   sys.path.append('../src')
-#   from eda_utils import summarise_imbalance, get_top_corr_features
-# ============================================================
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -39,7 +26,7 @@ def summarise_imbalance(y: pd.Series) -> pd.DataFrame:
     })
 
     rio = counts[0] / counts[1]
-    print("⚖️  Class Imbalance Summary:")
+    print("  Class Imbalance Summary:")
     print(summary.to_string(index=False))
     print(f"\n   Imbalance ratio : {ratio:.1f}:1")
     print(f"   Strategy        : class_weight='balanced'")
@@ -83,7 +70,7 @@ def flag_high_correlations(df: pd.DataFrame,
     Identify feature pairs with correlation above a threshold.
 
     Useful for detecting multicollinearity before Logistic
-    Regression — highly correlated features can destabilise
+    Regression, highly correlated features can destabilise
     coefficient estimates.
 
     Parameters
@@ -116,10 +103,10 @@ def flag_high_correlations(df: pd.DataFrame,
     ).reset_index(drop=True)
 
     if len(result) > 0:
-        print(f"⚠️  {len(reult)} feature pairs exceed r = {threshold}:")
+        print(f"  {len(reult)} feature pairs exceed r = {threshold}:")
         print(result.to_string(index=False))
     else:
-        print(f"✅ No feature pairs exceed correlation threshold of {threshold}.")
+        print(f" No feature pairs exceed correlation threshold of {threshold}.")
 
     return result
 
@@ -161,3 +148,4 @@ def count_outliers_iqr(df: pd.DataFrame,
     return pd.DataFrame(results).sort_values(
         'Outlier %', ascending=False
     ).reset_index(drop=True)
+        

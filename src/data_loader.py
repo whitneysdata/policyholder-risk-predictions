@@ -1,15 +1,3 @@
-# ============================================================
-# src/data_loader.py
-# ============================================================
-# Reusable data loading and preparation functions for the
-# Policyholder Risk Scoring project.
-#
-# Import into any notebook with:
-#   import sys
-#   sys.path.append('../src')
-#   from data_loader import run_full_pipeline
-# ============================================================
-
 import numpy as np
 import pandas as pd
 import os

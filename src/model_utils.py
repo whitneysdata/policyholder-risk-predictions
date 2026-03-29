@@ -1,13 +1,3 @@
-# ============================================================
-# Reusable model loading and prediction functions.
-# Chapters 4 and 5 import from here to avoid retraining.
-#
-# Import into any notebook with:
-#   import sys
-#   sys.path.append('../src')
-#   from model_utils import load_all_models, get_predictions
-# ============================================================
-
 import os
 import joblib
 import numpy as np
